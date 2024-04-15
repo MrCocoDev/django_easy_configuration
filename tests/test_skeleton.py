@@ -1,6 +1,6 @@
 import pytest
 
-from mrsage.django.django_deployment_configuration.skeleton import fib, main
+from mrsage.django.deployment_configuration.skeleton import fib, main
 
 __author__ = "Collin Sage"
 __copyright__ = "Collin Sage"

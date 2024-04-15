@@ -1,7 +1,7 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-source = mrsage.django.django_deployment_configuration
+source = mrsage.django.deployment_configuration
 # omit = bad_file.py
 
 [paths]
