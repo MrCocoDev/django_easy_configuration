@@ -48,7 +48,7 @@ def push_data_to_database(
         # Option does not exist yet
         option = Option.objects.create(
             name=option_name,
-            value=default_value,
+            raw_value=default_value,
             option_type=db_default_type,
             default_type=db_default_type,
             default_value=default_value,
@@ -64,15 +64,15 @@ def push_data_to_database(
 
         # If the value always changes with the default
         if option.default_value_change_behavior == Option.DefaultChangeBehavior.ALWAYS:
-            option.value = default_value
+            option.raw_value = default_value
             option.option_type = db_default_type
 
         # If the value changes if it is still the old default
         if (
                 option.default_value_change_behavior == Option.DefaultChangeBehavior.CHANGE_IF_UNCHANGED
-                and option.value == option.default_value
+                and option.raw_value == option.default_value
         ):
-            option.value = default_value
+            option.raw_value = default_value
             option.option_type = db_default_type
 
         # Error correction
@@ -83,14 +83,14 @@ def push_data_to_database(
                 extra={
                     'data': {
                         'option': option.name,
-                        'old_value': option.value,
+                        'old_value': option.raw_value,
                         'old_type': option.option_type,
                         'new_value': default_value,
                         'new_type': default_type,
                     }
                 }
             )
-            option.value = default_value
+            option.raw_value = default_value
             option.option_type = default_type
 
         option.default_value = default_value

@@ -20,7 +20,7 @@ class Option(models.Model):
     created, updated = meta_fields()
 
     name = models.CharField(max_length=2048)
-    value = models.CharField(max_length=2048)
+    raw_value = models.CharField(max_length=2048)
     option_type = models.ForeignKey(to='OptionType', on_delete=models.PROTECT)
 
     supported_types = models.ManyToManyField(to='OptionType', related_name='supportedoptiontypes')
@@ -34,6 +34,10 @@ class Option(models.Model):
     default_value_change_behavior = models.CharField(max_length=2048, choices=DefaultChangeBehavior.choices)
 
     documentation = models.TextField()
+
+    @property
+    def value(self):
+        return self.raw_value
 
 
 class OptionType(models.Model):

@@ -10,7 +10,7 @@ def test_generate_deployment_settings(deployment_settings_module):
     option = Option.objects.filter(name='VAR_A').first()
 
     assert option.name == 'VAR_A'
-    assert option.value == option.default_value == '99'
+    assert option.raw_value == option.default_value == '99'
     assert option.option_type.python_callable == option.default_type.python_callable == 'builtins.int'
     assert set(
         option.supported_types.all().values_list('python_callable', flat=True)

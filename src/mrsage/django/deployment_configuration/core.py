@@ -73,6 +73,17 @@ def find_metadata(variable_type):
 
 
 def generate_type_string_from_type(the_type):
+    """
+    Generates a callable string from a type.
+
+    Example:
+        >>> assert generate_type_string_from_type(str) == "builtins.str"
+
+    Args:
+        the_type: Any type that can be used within this library
+
+    Returns: A callable string for use within this library
+    """
     type_name = the_type.__qualname__
     module = the_type.__module__
     return f"{module}.{type_name}"
@@ -80,15 +91,8 @@ def generate_type_string_from_type(the_type):
 
 def generate_deployment_settings(deployment_settings_module: ModuleType):
     """
-    {
-        'VAR_A': typing.Annotated[
-            int | str | set,
-            Metadata(
-                documentation='This is a basic example of deployment configuration',
-                behavior_when_default_changes='never_change',
-            )
-        ]
-    }
+    Iterates over the deployment settings file and generates the necessary
+    data in the database.
     """
     for variable_name, variable_type in deployment_settings_module.__annotations__.items():
         default_value = getattr(deployment_settings_module, variable_name)
