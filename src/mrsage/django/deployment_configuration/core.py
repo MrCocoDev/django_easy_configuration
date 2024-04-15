@@ -8,6 +8,8 @@ from types import ModuleType
 
 from example_project.example_project.deployment_settings import Metadata
 
+from mrsage.django.deployment_configuration.store import push_data_to_database
+
 
 def load_deployment_settings_module(file_or_module_path: Path | str, /) -> ModuleType:
     """
@@ -89,11 +91,21 @@ def generate_deployment_settings(deployment_settings_module: ModuleType):
     }
     """
     for variable_name, variable_type in deployment_settings_module.__annotations__.items():
-        generate_type_string_from_variable(getattr(deployment_settings_module, variable_name))
-        find_metadata(variable_type)
+        default_value = getattr(deployment_settings_module, variable_name)
+        default_type = generate_type_string_from_variable(default_value)
+        metadata = find_metadata(variable_type)
         raw_supported_types = typing.get_args(variable_type)[0]
         supported_types = {
             generate_type_string_from_type(supported_type)
             for supported_type
             in typing.get_args(raw_supported_types)
         }
+
+        push_data_to_database(
+            option_name=variable_name,
+            default_value=default_value,
+            default_type=default_type,
+            supported_types=supported_types,
+            default_behavior=metadata.behavior_when_default_changes,
+            help_string=metadata.documentation,
+        )
