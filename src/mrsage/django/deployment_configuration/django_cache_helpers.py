@@ -1,4 +1,5 @@
 import functools
+from functools import _make_key
 from types import FunctionType
 from typing import Optional
 
@@ -12,12 +13,37 @@ def ttl_cache(function: FunctionType = None, /, ttl: Optional[float] = None, cac
 
     https://docs.djangoproject.com/en/4.2/topics/cache/
     """
+
+    def get_cache():
+        return caches[cache_name]
+
+    def clear_cache(key=None):
+        """
+        Perhaps allowing the clearing the entire cache is dangerous
+        """
+        if key:
+            return get_cache().delete(key)
+        else:
+            return get_cache().clear()
+
     # https://stackoverflow.com/a/74650070/1112794
     def decorator(func):
-        key = func.__qualname__
+
+        def make_key(*args, **kwargs):
+            return str(
+                _make_key((func.__module__, func.__qualname__, *args), kwargs, typed=False)
+            ).replace(
+                '[', '_bo_'
+            ).replace(
+                ']', '_bc_'
+            ).replace(
+                ' ',
+                '',
+            )
 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            key = make_key(*args, **kwargs)
             results = caches[cache_name].get(key)
             if not results:
                 results = func(*args, **kwargs)
@@ -25,7 +51,9 @@ def ttl_cache(function: FunctionType = None, /, ttl: Optional[float] = None, cac
 
             return results
 
-        wrapper.clear_cache = functools.partial(caches[cache_name].delete, key)
+        wrapper.clear_cache = clear_cache
+        wrapper.get_cache = get_cache
+        wrapper.make_key = make_key
 
         return wrapper
 

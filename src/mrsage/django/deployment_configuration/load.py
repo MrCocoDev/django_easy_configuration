@@ -17,6 +17,9 @@ def fully_load_library():
         replace_deployment_settings_module,
     )
 
+    # Load all of our signals
+    __import__(f"mrsage.django.deployment_configuration.signals")
+
     deployment_settings_module = load_deployment_settings_module(
         get_library_setting('deployment_settings_file')
     )
@@ -25,6 +28,3 @@ def fully_load_library():
     )
     if _APP['loaded'] == 'module':
         replace_deployment_settings_module(deployment_settings_module)
-
-    # Load all of our signals
-    __import__(f"mrsage.django.deployment_configuration.signals")
