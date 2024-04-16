@@ -1,7 +1,11 @@
+from mrsage.django.deployment_configuration.django_cache_helpers import ttl_cache
 from mrsage.django.deployment_configuration.django_settings_helpers import (
     get_library_setting,
 )
-from mrsage.django.deployment_configuration.exceptions import MissingOptionInDatabase
+from mrsage.django.deployment_configuration.exceptions import (
+    LibraryIsImproperlyConfigured,
+    MissingOptionInDatabase,
+)
 from mrsage.django.deployment_configuration.models import Option
 
 
@@ -22,3 +26,17 @@ def get_option_from_db(key):
         return option.value
     else:
         raise MissingOptionInDatabase("Could not find option in database, is the library loaded?")
+
+
+if get_library_setting('use_cache'):
+    cache_opts = {}
+    for opt_key, key in {('ttl', 'cache_ttl'), ('cache_name', 'cache_name')}:
+        try:
+            cache_opts[opt_key] = get_library_setting(key)
+        except LibraryIsImproperlyConfigured:
+            ...
+
+    get_option_from_db = ttl_cache(
+        get_option_from_db,
+        **cache_opts,
+    )

@@ -5,7 +5,6 @@ def fully_load_library():
     """
     Fully loads the library and slides the deployment
     Returns:
-
     """
     from mrsage.django.deployment_configuration.core import (
         generate_deployment_settings_safely,

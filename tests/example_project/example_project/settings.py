@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 DEPLOYMENT_CONFIGURATION_SETTINGS = {
-    'deployment_settings_file': 'tests.example_project.example_project.deployment_settings'
+    'deployment_settings_file': 'tests.example_project.example_project.deployment_settings',
+    'use_cache': True,
 }
 
 # Application definition
