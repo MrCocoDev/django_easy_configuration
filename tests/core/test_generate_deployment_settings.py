@@ -1,12 +1,14 @@
 import pytest
 
-from mrsage.django.deployment_configuration.core import generate_deployment_settings
+from mrsage.django.deployment_configuration.core import (
+    generate_deployment_settings_safely,
+)
 from mrsage.django.deployment_configuration.models import Option
 
 
 @pytest.mark.django_db
 def test_generate_deployment_settings(deployment_settings_module):
-    generate_deployment_settings(deployment_settings_module)
+    generate_deployment_settings_safely(deployment_settings_module)
     option = Option.objects.filter(name='VAR_A').first()
 
     assert option.name == 'VAR_A'

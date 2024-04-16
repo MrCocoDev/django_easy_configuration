@@ -19,3 +19,9 @@ class LibraryIsImproperlyConfigured(ImproperlyConfigured, BaseDjangoDeploymentCo
     """
     Oopsies, you didn't follow the instructions!
     """
+
+
+class MissingOptionInDatabase(BaseDjangoDeploymentConfigurationException):
+    """
+    Did you load the library before accessing the deployment options?
+    """

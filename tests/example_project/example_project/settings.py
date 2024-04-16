@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DEPLOYMENT_CONFIGURATION_SETTINGS = {
+    'deployment_settings_file': 'tests.example_project.example_project.deployment_settings'
+}
 
 # Application definition
 
@@ -37,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig',
+    # 'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig',
+    'mrsage.django.deployment_configuration',
 ]
 
 MIDDLEWARE = [

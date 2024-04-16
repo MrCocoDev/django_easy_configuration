@@ -1,4 +1,4 @@
-from logging import getLogger
+import logging
 from typing import Iterable
 
 from mrsage.django.deployment_configuration.exceptions import InvalidTypeForOption
@@ -6,7 +6,7 @@ from mrsage.django.deployment_configuration.import_helper import callable_from_s
 from mrsage.django.deployment_configuration.models import Option, OptionType
 from mrsage.django.deployment_configuration.typing import DEFAULT_BEHAVIOR_CHANGE
 
-log = getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 def push_data_to_database(
@@ -94,7 +94,7 @@ def push_data_to_database(
             option.option_type = default_type
 
         option.default_value = default_value
-        option.default_type = default_type
+        option.default_type = db_default_type
         option.documentation = help_string
 
         option.save()
@@ -110,3 +110,11 @@ def generate_option_type(default_type) -> tuple[OptionType, bool]:
             'documentation': callable_from_string(default_type).__doc__
         }
     )
+
+
+def clean_up_old_options(existing_options: Iterable[str]):
+    old_options = Option.objects.exclude(name__in=existing_options)
+    if old_options:
+        log.warning("Deleting old options: %s", old_options.values_list('name', flat=True))
+
+    return old_options.delete()
