@@ -1,3 +1,6 @@
+from mrsage.django.deployment_configuration.metadata import _APP
+
+
 def fully_load_library():
     """
     Fully loads the library and slides the deployment
@@ -21,7 +24,8 @@ def fully_load_library():
     generate_deployment_settings_safely(
         deployment_settings_module
     )
-    replace_deployment_settings_module(deployment_settings_module)
+    if _APP['loaded'] == 'module':
+        replace_deployment_settings_module(deployment_settings_module)
 
     # Load all of our signals
     __import__(f"mrsage.django.deployment_configuration.signals")

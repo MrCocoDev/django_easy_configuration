@@ -1,0 +1,3 @@
+_APP = {
+    'loaded': None,
+}

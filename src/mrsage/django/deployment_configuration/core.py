@@ -15,6 +15,7 @@ from mrsage.django.deployment_configuration.import_helper import (
     callable_from_string,
     import_from_filepath,
 )
+from mrsage.django.deployment_configuration.metadata import _APP
 
 log = logging.getLogger(__name__)
 
@@ -48,10 +49,13 @@ def load_deployment_settings_module(file_or_module_path: Path | str, /) -> Modul
     """
     try:
         if isinstance(file_or_module_path, Path) or Path(file_or_module_path).exists():
+            _APP['loaded'] = 'file'
             return import_from_filepath(file_or_module_path)
+
     except TypeError:
         ...
 
+    _APP['loaded'] = 'module'
     return importlib.import_module(file_or_module_path)
 
 

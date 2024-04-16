@@ -1,8 +1,14 @@
-from tests.example_project.example_project.settings import INSTALLED_APPS
+from tests.example_project.example_project.settings import *  # no-qa
 
-INSTALLED_APPS.remove(
-    'mrsage.django.deployment_configuration',
-)
-INSTALLED_APPS.append(
-    'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig'
-)
+try:
+    INSTALLED_APPS.remove(
+        'mrsage.django.deployment_configuration',
+    )
+except ValueError:
+    ...
+
+test_mod = 'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig'
+if test_mod not in INSTALLED_APPS:
+    INSTALLED_APPS.append(
+        test_mod
+    )
