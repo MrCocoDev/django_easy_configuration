@@ -1,14 +1,32 @@
 """
 Where the fun stuff happens
 """
+import ast
 import importlib
 import typing
 from pathlib import Path
 from types import ModuleType
 
-from example_project.example_project.deployment_settings import Metadata
+from mrsage.django.deployment_configuration.data import Metadata
+from mrsage.django.deployment_configuration.import_helper import (
+    callable_from_string,
+    import_from_filepath,
+)
 
-from mrsage.django.deployment_configuration.store import push_data_to_database
+HYDRATION_MAP: typing.Annotated[
+    dict[str, typing.Callable],
+    """
+    This is required to make the builtin functions work off string values. Maybe
+    there is another way to sneakily slide these callables over top of the base
+    callable, but this works well enough. For your own callables, make sure that they
+    can accept a string and return a value.
+    """
+] = {
+    'builtins.list': lambda v: list(ast.literal_eval(v)),
+    'builtins.set': lambda v: set() if v == "{}" else set(ast.literal_eval(v)) ,
+    'builtins.dict': lambda v: dict(ast.literal_eval(v)),
+    'builtins.NoneType': lambda v: None,
+}
 
 
 def load_deployment_settings_module(file_or_module_path: Path | str, /) -> ModuleType:
@@ -27,32 +45,6 @@ def load_deployment_settings_module(file_or_module_path: Path | str, /) -> Modul
         return import_from_filepath(file_or_module_path)
     else:
         return importlib.import_module(file_or_module_path)
-
-
-def import_from_filepath(filepath):
-    """
-    Copied from https://stackoverflow.com/a/67692
-
-    Dynamically load a filepath as a python module and insert it into the
-    system modules.
-
-    Args:
-        filepath: A string or filepath to load as a python module
-
-    Returns: The python module represented by the input string
-    """
-    import importlib.util
-    import sys
-    module_name = "mrsage.django.deployment_configuration.tmp.deployment_settings"
-    spec = importlib.util.spec_from_file_location(
-        module_name,
-        filepath,
-    )
-    foo = importlib.util.module_from_spec(spec)
-    sys.modules[module_name] = foo
-    spec.loader.exec_module(foo)
-
-    return foo
 
 
 def generate_type_string_from_variable(variable) -> str:
@@ -94,6 +86,10 @@ def generate_deployment_settings(deployment_settings_module: ModuleType):
     Iterates over the deployment settings file and generates the necessary
     data in the database.
     """
+    # This function runs once, so we pay for the local import instead of paying
+    # every time a value is accessed
+    from mrsage.django.deployment_configuration.store import push_data_to_database
+
     for variable_name, variable_type in deployment_settings_module.__annotations__.items():
         default_value = getattr(deployment_settings_module, variable_name)
         default_type = generate_type_string_from_variable(default_value)
@@ -113,3 +109,21 @@ def generate_deployment_settings(deployment_settings_module: ModuleType):
             default_behavior=metadata.behavior_when_default_changes,
             help_string=metadata.documentation,
         )
+
+
+def hydrate_value(value, callable_str):
+    """
+    Converts a value and a callable string into the value returned
+    by the callable when passed the value.
+
+    Args:
+        value: The input to the callable represented by the string
+        callable_str: A string which represents a callable (ex: builtins.str)
+
+    Returns: The converted value of the input
+    """
+    actual_callable = HYDRATION_MAP.get(
+        callable_str,
+        callable_from_string(callable_str),
+    )
+    return actual_callable(value)

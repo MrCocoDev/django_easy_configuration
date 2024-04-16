@@ -1,5 +1,7 @@
 from django.db import models
 
+from mrsage.django.deployment_configuration.core import hydrate_value
+
 
 def meta_fields() -> tuple[models.DateTimeField, models.DateTimeField]:
     """
@@ -37,7 +39,10 @@ class Option(models.Model):
 
     @property
     def value(self):
-        return self.raw_value
+        """
+        Returns the hydrated value from the database.
+        """
+        return hydrate_value(self.raw_value, self.option_type.python_callable)
 
 
 class OptionType(models.Model):

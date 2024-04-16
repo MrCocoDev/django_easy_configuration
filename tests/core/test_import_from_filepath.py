@@ -1,4 +1,4 @@
-from mrsage.django.deployment_configuration.core import import_from_filepath
+from mrsage.django.deployment_configuration.import_helper import import_from_filepath
 
 
 def test_loads_file_correctly(settings):
