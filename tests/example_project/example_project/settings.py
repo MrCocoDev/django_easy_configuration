@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig',
     'mrsage.django.deployment_configuration',
+    'admin_autoregister',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
+from mrsage.django.deployment_configuration.load import fully_load_library
+
 
 class DeploymentConfigurationConfig(AppConfig):
     default = True
@@ -7,24 +9,7 @@ class DeploymentConfigurationConfig(AppConfig):
     name = 'mrsage.django.deployment_configuration'
 
     def ready(self):
-        from mrsage.django.deployment_configuration.core import (
-            generate_deployment_settings_safely,
-            load_deployment_settings_module,
-        )
-        from mrsage.django.deployment_configuration.django_settings_helpers import (
-            get_library_setting,
-        )
-        from mrsage.django.deployment_configuration.magic import (
-            replace_deployment_settings_module,
-        )
-
-        deployment_settings_module = load_deployment_settings_module(
-            get_library_setting('deployment_settings_file')
-        )
-        generate_deployment_settings_safely(
-            deployment_settings_module
-        )
-        replace_deployment_settings_module(deployment_settings_module)
+        fully_load_library()
 
 
 class DeploymentConfigurationTestConfig(AppConfig):
