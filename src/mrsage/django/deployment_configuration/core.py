@@ -5,6 +5,7 @@ import ast
 import importlib
 import logging
 import typing
+from functools import singledispatch
 from pathlib import Path
 from types import ModuleType
 
@@ -145,6 +146,8 @@ def hydrate_value(value, callable_str):
     Converts a value and a callable string into the value returned
     by the callable when passed the value.
 
+    TODO allow registering a function for a callable to allow for customization
+
     Args:
         value: The input to the callable represented by the string
         callable_str: A string which represents a callable (ex: builtins.str)
@@ -156,3 +159,12 @@ def hydrate_value(value, callable_str):
         callable_from_string(callable_str),
     )
     return actual_callable(value)
+
+
+@singledispatch
+def dehydrate_value(new_value: typing.Any) -> str:
+    """
+    Serializes the value into a string. Register a function with a type to
+    customize the serialization.
+    """
+    return str(new_value)

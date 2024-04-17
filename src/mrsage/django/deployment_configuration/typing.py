@@ -1,3 +1,8 @@
-from typing import Literal
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-DEFAULT_BEHAVIOR_CHANGE = Literal["always_change", "never_change", "change_if_unchanged"]
+
+class DefaultChangeBehavior(models.TextChoices):
+    ALWAYS = 'always_change', _("Always Change")
+    NEVER = 'never_change', _("Never Change")
+    CHANGE_IF_UNCHANGED = 'change_if_unchanged', _("Change if Unchanged")

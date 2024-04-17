@@ -4,7 +4,7 @@ from typing import Iterable
 from mrsage.django.deployment_configuration.exceptions import InvalidTypeForOption
 from mrsage.django.deployment_configuration.import_helper import callable_from_string
 from mrsage.django.deployment_configuration.models import Option, OptionType
-from mrsage.django.deployment_configuration.typing import DEFAULT_BEHAVIOR_CHANGE
+from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
 
 log = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ def push_data_to_database(
         default_value: str,
         default_type: str,
         supported_types: Iterable[str],
-        default_behavior: DEFAULT_BEHAVIOR_CHANGE,
+        default_behavior: DefaultChangeBehavior,
         help_string: str,
 ):
     """
