@@ -9,6 +9,9 @@ from mrsage.django.deployment_configuration.core import (
     generate_type_string_from_type,
     hydrate_value,
 )
+from mrsage.django.deployment_configuration.django_settings_helpers import (
+    get_library_setting,
+)
 from mrsage.django.deployment_configuration.models import Option, OptionType
 from mrsage.django.deployment_configuration.store import change_value_for_option
 
@@ -82,18 +85,29 @@ class OptionAdmin(admin.ModelAdmin):
             },
         ),
     ]
+    if not get_library_setting('use_cache'):
+        fieldsets[0][1]['fields'] = list(filter(lambda v: 'cache' not in v, fieldsets[0][1]['fields']))
+
     readonly_fields = [
         'name', 'current_value', 'current_cache_value',
         'default_type_with_label', 'default_value',
         'rendered_documentation', 'matches_cache'
     ]
+    if not get_library_setting('use_cache'):
+        readonly_fields = list(filter(lambda v: 'cache' not in v, readonly_fields))
+
     exclude = ['supported_types', 'documentation', 'default_type', 'allowed_types', ]
-    list_display = (
+    list_display = [
         'updated',
         'current_value', 'current_cache_value', 'matches_cache',
         'default_value', 'default_type',
-    )
+    ]
+    if not get_library_setting('use_cache'):
+        list_display = list(filter(lambda v: 'cache' not in v, list_display))
+
     actions = ["reset_to_default", "reset_cache_value", ]
+    if not get_library_setting('use_cache'):
+        actions = list(filter(lambda v: 'cache' not in v, actions))
 
     form = OptionForm
 
