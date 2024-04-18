@@ -66,6 +66,9 @@ class Option(models.Model):
         self.raw_value = dehydrate_value(new_value)
         self.option_type = new_option_type
 
+    def __str__(self):
+        return self.name
+
 
 class OptionType(models.Model):
     created, updated = meta_fields()
@@ -75,7 +78,7 @@ class OptionType(models.Model):
     documentation = models.TextField()
 
     def admin_label(self):
-        """
-
-        """
         return self.python_callable
+
+    def to_callable(self):
+        return

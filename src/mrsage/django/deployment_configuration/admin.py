@@ -1,9 +1,12 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
+from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
+from mrsage.django.deployment_configuration.core import hydrate_value
 from mrsage.django.deployment_configuration.models import Option, OptionType
+from mrsage.django.deployment_configuration.store import change_value_for_option
 
 # TODO add reset to default action
 
@@ -21,15 +24,31 @@ class OptionForm(forms.ModelForm):
 
         if instance:
             self.fields['option_type'].queryset = OptionType.objects.filter(supportedoptions=instance)
+            self.fields['raw_value'].required = False
 
     def clean(self):
-        super().clean()
-        try:
-            ...
-        except Exception:
-            ...
+        data = super().clean()
+        if 'raw_value' not in data:
+            data['raw_value'] = False
 
-        return True
+        raw_value = data['raw_value']
+        option_type = data['option_type']
+
+        try:
+            hydrate_value(
+                raw_value,
+                option_type.python_callable,
+            )
+            change_value_for_option(
+                self.instance,
+                raw_value,
+                option_type,
+            )
+        except Exception as e:
+            raise ValidationError(str(e)) from e
+
+        return data
+
 
 @admin.register(Option)
 class OptionAdmin(admin.ModelAdmin):
@@ -56,13 +75,14 @@ class OptionAdmin(admin.ModelAdmin):
         (
             "Documentation",
             {
+                "classes": ["collapse", "start-open", ],
                 "fields": ["rendered_documentation", ],
             },
         ),
     ]
     readonly_fields = ['name', 'current_value', 'default_type_with_label', 'default_value', 'rendered_documentation', ]
     exclude = ['supported_types', 'documentation', 'default_type', 'allowed_types', ]
-    list_display = ('current_value', 'option_type', 'default_value', 'default_type',)
+    list_display = ('current_value', 'option_type', 'default_value', 'default_type', )
 
     form = OptionForm
 
