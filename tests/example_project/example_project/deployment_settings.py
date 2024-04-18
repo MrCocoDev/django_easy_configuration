@@ -9,3 +9,4 @@ VAR_A: Annotated[
         behavior_when_default_changes="never_change",
     )
 ] = 99  # Default value and type
+VAR_B: float = 99.12321

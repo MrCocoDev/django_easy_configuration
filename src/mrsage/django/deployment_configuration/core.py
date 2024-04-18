@@ -68,13 +68,14 @@ def generate_type_string_from_variable(variable) -> str:
     return generate_type_string_from_type(the_type)
 
 
-def find_metadata(variable_type):
+def find_metadata(variable_type) -> typing.Optional[Metadata]:
     """
     Searches through the annotated metadata for our Metadata class
     """
-    for value in variable_type.__metadata__:
-        if isinstance(value, Metadata):
-            return value
+    if hasattr(variable_type, "__metadata__"):
+        for value in variable_type.__metadata__:
+            if isinstance(value, Metadata):
+                return value
 
 
 def generate_type_string_from_type(the_type):
@@ -120,13 +121,19 @@ def generate_deployment_settings(deployment_settings_module: ModuleType):
     for variable_name, variable_type in deployment_settings_module.__annotations__.items():
         default_value = getattr(deployment_settings_module, variable_name)
         default_type = generate_type_string_from_variable(default_value)
-        metadata = find_metadata(variable_type)
-        raw_supported_types = typing.get_args(variable_type)[0]
-        supported_types = {
-            generate_type_string_from_type(supported_type)
-            for supported_type
-            in typing.get_args(raw_supported_types)
-        }
+        metadata = find_metadata(variable_type) or Metadata()
+
+        if type_args := typing.get_args(variable_type):
+            raw_supported_types = type_args[0]
+            supported_types = {
+                generate_type_string_from_type(supported_type)
+                for supported_type
+                in typing.get_args(raw_supported_types)
+            }
+        else:
+            supported_types = {
+                generate_type_string_from_type(variable_type)
+            }
 
         push_data_to_database(
             option_name=variable_name,

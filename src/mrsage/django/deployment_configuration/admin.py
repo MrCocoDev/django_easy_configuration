@@ -8,8 +8,6 @@ from mrsage.django.deployment_configuration.core import hydrate_value
 from mrsage.django.deployment_configuration.models import Option, OptionType
 from mrsage.django.deployment_configuration.store import change_value_for_option
 
-# TODO add reset to default action
-
 
 class OptionForm(forms.ModelForm):
     class Meta:
@@ -82,7 +80,8 @@ class OptionAdmin(admin.ModelAdmin):
     ]
     readonly_fields = ['name', 'current_value', 'default_type_with_label', 'default_value', 'rendered_documentation', ]
     exclude = ['supported_types', 'documentation', 'default_type', 'allowed_types', ]
-    list_display = ('current_value', 'option_type', 'default_value', 'default_type', )
+    list_display = ('current_value', 'option_type', 'default_value', 'default_type',)
+    actions = ["reset_to_default", ]
 
     form = OptionForm
 
@@ -125,3 +124,21 @@ class OptionAdmin(admin.ModelAdmin):
             value = obj.value
 
         return mark_safe(f"{obj.option_type.python_callable}: {value}")
+
+    @admin.action(description="Reset to default")
+    def reset_to_default(self, request, queryset):
+        option: Option
+        for option in queryset:
+            option.reset_to_default()
+            option.save()
+
+
+@admin.register(OptionType)
+class OptionTypeAdmin(admin.ModelAdmin):
+    readonly_fields = ['python_callable', 'documentation']
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

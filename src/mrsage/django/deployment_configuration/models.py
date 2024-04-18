@@ -66,6 +66,10 @@ class Option(models.Model):
         self.raw_value = dehydrate_value(new_value)
         self.option_type = new_option_type
 
+    def reset_to_default(self):
+        self.raw_value = self.default_value
+        self.option_type = self.default_type
+
     def __str__(self):
         return self.name
 

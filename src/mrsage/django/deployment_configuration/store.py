@@ -121,7 +121,7 @@ def clean_up_old_options(existing_options: Iterable[str]):
 
 
 def change_value_for_option(option, raw_value, option_type: OptionType):
-    if not option.supported_types.all().only('pk').filter(pk=option.pk).exists():
+    if not option.supported_types.all().only('pk').filter(pk=option_type.pk).exists():
         raise ValueError(
             f"Cannot assign '{raw_value}' of type '{option_type.python_callable}' to {option.name}! "
             f"Supported types are {list(option.supported_types.all().values_list('python_callable', flat=True))}"
