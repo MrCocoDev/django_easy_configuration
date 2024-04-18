@@ -5,6 +5,7 @@ from mrsage.django.deployment_configuration.core import (
     generate_type_string_from_type,
     hydrate_value,
 )
+from mrsage.django.deployment_configuration.import_helper import callable_from_string
 from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
 
 
@@ -85,4 +86,7 @@ class OptionType(models.Model):
         return self.python_callable
 
     def to_callable(self):
-        return
+        return callable_from_string(self.python_callable)
+
+    def __str__(self):
+        return self.python_callable

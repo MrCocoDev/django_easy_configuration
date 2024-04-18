@@ -4,7 +4,11 @@ from django.contrib.admin.templatetags.admin_list import _boolean_icon
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
-from mrsage.django.deployment_configuration.core import hydrate_value
+from mrsage.django.deployment_configuration import deployment_settings
+from mrsage.django.deployment_configuration.core import (
+    generate_type_string_from_type,
+    hydrate_value,
+)
 from mrsage.django.deployment_configuration.models import Option, OptionType
 from mrsage.django.deployment_configuration.store import change_value_for_option
 
@@ -54,7 +58,7 @@ class OptionAdmin(admin.ModelAdmin):
         (
             "Basic Information",
             {
-                "fields": ["name", "current_value", ],
+                "fields": ["name", "current_value", "current_cache_value", "matches_cache", ],
             },
         ),
         (
@@ -78,10 +82,18 @@ class OptionAdmin(admin.ModelAdmin):
             },
         ),
     ]
-    readonly_fields = ['name', 'current_value', 'default_type_with_label', 'default_value', 'rendered_documentation', ]
+    readonly_fields = [
+        'name', 'current_value', 'current_cache_value',
+        'default_type_with_label', 'default_value',
+        'rendered_documentation', 'matches_cache'
+    ]
     exclude = ['supported_types', 'documentation', 'default_type', 'allowed_types', ]
-    list_display = ('current_value', 'option_type', 'default_value', 'default_type',)
-    actions = ["reset_to_default", ]
+    list_display = (
+        'updated',
+        'current_value', 'current_cache_value', 'matches_cache',
+        'default_value', 'default_type',
+    )
+    actions = ["reset_to_default", "reset_cache_value", ]
 
     form = OptionForm
 
@@ -125,11 +137,28 @@ class OptionAdmin(admin.ModelAdmin):
 
         return mark_safe(f"{obj.option_type.python_callable}: {value}")
 
+    @admin.display(description="Current cached value")
+    def current_cache_value(self, obj: Option):
+        value = getattr(deployment_settings, obj.name)
+        type_string = generate_type_string_from_type(type(value))
+
+        return mark_safe(f"{type_string}: {value}")
+
+    @admin.display(description="Cache matches")
+    def matches_cache(self, obj: Option):
+        return _boolean_icon(self.current_cache_value(obj) == self.current_value(obj))
+
     @admin.action(description="Reset to default")
     def reset_to_default(self, request, queryset):
         option: Option
         for option in queryset:
             option.reset_to_default()
+            option.save()
+
+    @admin.action(description="Reset cache to match current value")
+    def reset_cache_value(self, request, queryset):
+        option: Option
+        for option in queryset:
             option.save()
 
 
