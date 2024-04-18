@@ -1,3 +1,5 @@
+let ORIGINAL_VALUE = null;
+
 document.addEventListener(
     'DOMContentLoaded',
     event => {
@@ -48,12 +50,14 @@ const onload_update_field = () => {
     const option_type_field = document.querySelector("[name=option_type]")
     const option_type = option_type_field.options[option_type_field.selectedIndex].text;
 
-    console.log(raw_value_field.value)
+    ORIGINAL_VALUE = raw_value_field.value;
     update_field_type(raw_value_field, option_type);
 }
 
 
 const update_field_type = (raw_value_field, option_type) => {
+    raw_value_field.value = ORIGINAL_VALUE;
+
     // This fixes a weird bug where a checkbox will inherit the value "on" for some reason
     const raw_value = raw_value_field.value;
 
