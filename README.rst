@@ -10,15 +10,9 @@
     .. image:: https://img.shields.io/coveralls/github/MrSage/django-easy-configuration/main.svg
         :alt: Coveralls
         :target: https://coveralls.io/r/MrSage/django-easy-configuration
-    .. image:: https://img.shields.io/pypi/v/django-easy-configuration.svg
-        :alt: PyPI-Server
-        :target: https://pypi.org/project/django-easy-configuration/
     .. image:: https://img.shields.io/conda/vn/conda-forge/django-easy-configuration.svg
         :alt: Conda-Forge
         :target: https://anaconda.org/conda-forge/django-easy-configuration
-    .. image:: https://pepy.tech/badge/django-easy-configuration/month
-        :alt: Monthly Downloads
-        :target: https://pepy.tech/project/django-easy-configuration
     .. image:: https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Twitter
         :alt: Twitter
         :target: https://twitter.com/django-easy-configuration
@@ -26,7 +20,15 @@
 .. image:: https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold
     :alt: Project generated with PyScaffold
     :target: https://pyscaffold.org/
-
+.. image:: https://img.shields.io/pypi/v/django-easy-configuration.svg
+    :alt: PyPI-Server
+    :target: https://pypi.org/project/django-easy-configuration/
+.. image:: https://github.com/MrSage/django-easy-configuration/actions/workflows/ci.yml/badge.svg
+    :alt: GitHub Test CI
+    :target: https://github.com/MrSage/django-easy-configuration/actions/workflows/ci.yml
+.. image:: https://pepy.tech/badge/django-easy-configuration/month
+    :alt: Monthly Downloads
+    :target: https://pepy.tech/project/django-easy-configuration
 |
 
 ===============================
