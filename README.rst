@@ -29,6 +29,7 @@
 .. image:: https://pepy.tech/badge/django-easy-configuration/month
     :alt: Monthly Downloads
     :target: https://pepy.tech/project/django-easy-configuration
+
 |
 
 ===============================
