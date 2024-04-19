@@ -67,12 +67,12 @@ And then configure the library in your django settings file:
         'deployment_settings_file': 'my.modules.deployment_settings',
     }
 
-Now, boot up your server and head to the Admin panel. You should see **Option**s and **OptionType**s
+Now, boot up your server and head to the Admin panel. You should see **Option** s and **OptionType** s
 in the sidebar. If you inspect them you will see that **builtins.str** and **builtins.float** have
 automatically been added to the database, as you adjust your deployment_settings file you will see
 these automatically change. You should never need to interact with these directly.
 
-If you look at **Option**s you will see there are two option loaded into the database:
+If you look at **Option** s you will see there are two option loaded into the database:
 *CUSTOMER_DISPLAY_NAME*, and *NETWORK_TIMEOUT*. For the basic examples shown above you won't be able to
 configure much about these options except for to modify their values. If we use a more advanced
 setup there will be more options to explore:
@@ -126,9 +126,7 @@ Possible Issues
 Unfortunately, things rarely ever **Just Work™**. There are some considerations to take into account
 when using this library:
 
-- Caching: This library uses the Django cache system to prevent database lookups when your code accesses
-the configuration variables. If your cache is not setup properly then every variable lookup will incur a
-database lookup. This will potentially impact load times and site stability!
+- Caching: This library uses the Django cache system to prevent database lookups when your code accesses the configuration variables. If your cache is not setup properly then every variable lookup will incur a database lookup. This will potentially impact load times and site stability!
 
 
 .. _pyscaffold-notes:
