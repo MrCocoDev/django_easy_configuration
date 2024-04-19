@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from mrsage.django.deployment_configuration.django_settings_helpers import (
-    get_library_setting,
+    LIBRARY_SETTINGS,
 )
 from mrsage.django.deployment_configuration.models import Option
 from mrsage.django.deployment_configuration.retrieve import get_option_from_db
@@ -28,7 +28,7 @@ def surgical_cache_clear(
     after put the new value in the cache. Doing this will avoid hitting the database
     in any code which uses deployment settings minus scenarios with a TTL.
     """
-    if get_library_setting('use_cache'):
+    if LIBRARY_SETTINGS.use_cache:
         log.info("Clearing cache for %s", instance.name)
         get_option_from_db.clear_cache(
             key=get_option_from_db.make_key(instance.name)

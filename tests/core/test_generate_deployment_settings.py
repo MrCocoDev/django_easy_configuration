@@ -18,4 +18,4 @@ def test_generate_deployment_settings(deployment_settings_module):
         option.supported_types.all().values_list('python_callable', flat=True)
     ) == {"builtins.str", "builtins.int", "builtins.set"}
     assert option.default_value_change_behavior == 'never_change'
-    assert option.documentation == "This is a basic example of deployment configuration"
+    assert option.documentation == "This is a <em>basic example</em> of deployment configuration"

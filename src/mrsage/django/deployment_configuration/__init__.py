@@ -8,7 +8,7 @@ else:
 
 try:
     # Change here if project is renamed and does not equal the package name
-    dist_name = "django-deployment-configuration"
+    dist_name = "django-easy-configuration"
     __version__ = version(dist_name)
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"

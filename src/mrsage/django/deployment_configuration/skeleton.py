@@ -76,7 +76,7 @@ def parse_args(args):
     parser.add_argument(
         "--version",
         action="version",
-        version=f"django-deployment-configuration {__version__}",
+        version=f"django-easy-configuration {__version__}",
     )
     parser.add_argument(dest="n", help="n-th Fibonacci number", type=int, metavar="INT")
     parser.add_argument(

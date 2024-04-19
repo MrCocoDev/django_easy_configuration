@@ -7,3 +7,6 @@ from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
 class Metadata:
     documentation: str = ''
     behavior_when_default_changes: DefaultChangeBehavior = DefaultChangeBehavior.ALWAYS
+
+
+Metadata.DefaultChangeBehavior = DefaultChangeBehavior

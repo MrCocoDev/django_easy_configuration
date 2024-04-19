@@ -9,6 +9,7 @@ except ValueError:
 
 test_mod = 'mrsage.django.deployment_configuration.apps.DeploymentConfigurationTestConfig'
 if test_mod not in INSTALLED_APPS:
-    INSTALLED_APPS.append(
-        test_mod
+    INSTALLED_APPS.insert(
+        -1,
+        test_mod,
     )

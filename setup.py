@@ -1,5 +1,5 @@
 """
-    Setup file for django-deployment-configuration.
+    Setup file for django-easy-configuration.
     Use setup.cfg to configure your project.
 
     This file was generated with PyScaffold 4.5.
