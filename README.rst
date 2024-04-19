@@ -28,7 +28,7 @@
     :target: https://github.com/MrSage/django_easy_configuration/actions/workflows/ci.yml
 .. image:: https://pepy.tech/badge/django-easy-configuration/month
     :alt: Monthly Downloads
-    :target: https://pepy.tech/project/django-easy-configuration
+    :target: https://pepy.tech/project/django_easy_configuration
 
 |
 
