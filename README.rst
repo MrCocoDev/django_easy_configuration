@@ -124,7 +124,9 @@ To use this library inside of your codebase just import your module as normal an
 Async Support
 -------------
 
-As long
+As long as the Django cache is configured correctly with a synchronous cache then this project can be
+safely accessed from inside of async contexts. See the tests in `tests/retrieve/test_async_retrieve.py`
+for examples.
 
 Possible Issues
 ---------------
