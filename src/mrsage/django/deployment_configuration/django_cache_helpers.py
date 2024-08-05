@@ -1,12 +1,11 @@
 import functools
 from functools import _make_key
-from types import FunctionType
-from typing import Optional
+from typing import Optional, Callable
 
 from django.core.cache import caches
 
 
-def ttl_cache(function: FunctionType = None, /, ttl: Optional[float] = None, cache_name: str = 'default'):
+def ttl_cache(function: Callable = None, /, ttl: Optional[float] = None, cache_name: str = 'default'):
     """
     A TTL cache backed by Django's cache framework. See the CACHES setting
     for information on how the cache operates.

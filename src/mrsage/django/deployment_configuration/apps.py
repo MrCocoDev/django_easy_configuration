@@ -1,6 +1,12 @@
 from django.apps import AppConfig
+from django.db.models.signals import post_migrate
 
+from mrsage.django.deployment_configuration.exceptions import MissingTable
 from mrsage.django.deployment_configuration.load import fully_load_library
+
+
+def fully_load_library_after_migrations(sender, **kwargs):
+    fully_load_library()
 
 
 class DeploymentConfigurationConfig(AppConfig):
@@ -9,7 +15,18 @@ class DeploymentConfigurationConfig(AppConfig):
     name = 'mrsage.django.deployment_configuration'
 
     def ready(self):
-        fully_load_library()
+        try:
+            fully_load_library()
+        except MissingTable:
+            """
+            If migrations are running the first call will fail, but the 
+            post_migrate signal is only sent when migrations are running, 
+            so we can't use that normally.
+            """
+            post_migrate.connect(
+                fully_load_library_after_migrations,
+                sender=self,
+            )
 
 
 class DeploymentConfigurationTestConfig(AppConfig):

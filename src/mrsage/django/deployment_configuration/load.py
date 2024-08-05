@@ -1,3 +1,13 @@
+import logging
+
+from django.db import OperationalError
+
+from mrsage.django.deployment_configuration.exceptions import MissingTable
+
+log = logging.getLogger(__name__)
+SHOULD_LOAD = True
+
+
 def fully_load_library():
     """
     Fully loads the library and slides the deployment
@@ -25,4 +35,12 @@ def fully_load_library():
         deployment_settings_module
     )
     if _APP['loaded'] == 'module':
-        replace_deployment_settings_module(deployment_settings_module)
+        try:
+            replace_deployment_settings_module(deployment_settings_module)
+        except OperationalError as e:
+            from mrsage.django.deployment_configuration.models import Option
+            if (
+                    f"no such table: {Option._meta.db_table}"
+                    in repr(e)
+            ):
+                raise MissingTable("Migrations need to be run!") from e

@@ -1,3 +1,8 @@
+__all__ = [
+    "get_all_option_names",
+    "get_option_from_db",
+]
+
 from mrsage.django.deployment_configuration.django_cache_helpers import ttl_cache
 from mrsage.django.deployment_configuration.django_settings_helpers import (
     LIBRARY_SETTINGS,
@@ -29,14 +34,14 @@ def get_option_from_db(key):
 
 
 if LIBRARY_SETTINGS.use_cache:
-    cache_opts = {}
-    for opt_key, key in {('ttl', 'cache_ttl'), ('cache_name', 'cache_name')}:
+    _cache_opts = {}
+    for _opt_key, _key in {('ttl', 'cache_ttl'), ('cache_name', 'cache_name')}:
         try:
-            cache_opts[opt_key] = getattr(LIBRARY_SETTINGS, key)
+            _cache_opts[_opt_key] = getattr(LIBRARY_SETTINGS, _key)
         except LibraryIsImproperlyConfigured:
             ...
 
     get_option_from_db = ttl_cache(
         get_option_from_db,
-        **cache_opts,
+        **_cache_opts,
     )

@@ -25,3 +25,9 @@ class MissingOptionInDatabase(BaseDjangoDeploymentConfigurationException):
     """
     Did you load the library before accessing the deployment options?
     """
+
+
+class MissingTable(BaseDjangoDeploymentConfigurationException):
+    """
+    Migrations need to be run!
+    """
