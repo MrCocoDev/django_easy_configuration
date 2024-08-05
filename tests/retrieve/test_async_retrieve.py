@@ -19,9 +19,16 @@ def test_some_asyncio_code():
         var.raw_value = str(expected)
         var.save()
 
+    did_run = False
+
     # Show that access from an async context works as long as caching is set up correctly
     async def testing():
+        nonlocal did_run
         ds = module_from_library_settings()
         assert ds.VAR_B == expected
+        did_run = True
 
     asyncio.run(testing())
+
+    # Just to make sure this test doesn't pass because of a developer error
+    assert did_run

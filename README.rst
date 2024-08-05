@@ -121,6 +121,11 @@ To use this library inside of your codebase just import your module as normal an
     def do_something():
         return httpx.post(..., timeout=deployment_settings.NETWORK_TIMEOUT)
 
+Async Support
+-------------
+
+As long
+
 Possible Issues
 ---------------
 
