@@ -7,12 +7,12 @@
     - https://docs.pytest.org/en/stable/writing_plugins.html
 """
 
-import pytest
 from importlib import reload
 
+import pytest
+
 from mrsage.django.deployment_configuration import magic
-from mrsage.django.deployment_configuration.core import load_deployment_settings_module
-from mrsage.django.deployment_configuration.django_settings_helpers import LIBRARY_SETTINGS
+from mrsage.django.deployment_configuration.shortcuts import module_from_library_settings
 
 
 @pytest.fixture()
@@ -33,9 +33,7 @@ def refresh_deployment_settings_module():
     This can be alleviated with the use of `pytest-random-order`, but it can still
     fly under the radar long enough for the faulty commit to be hidden in the history.
     """
-    deployment_settings_module = load_deployment_settings_module(
-        LIBRARY_SETTINGS.deployment_settings_file
-    )
+    deployment_settings_module = module_from_library_settings()
     yield
     reload(deployment_settings_module)
     magic.MAGICKED_MODULE = None

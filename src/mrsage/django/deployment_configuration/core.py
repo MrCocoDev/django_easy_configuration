@@ -5,7 +5,7 @@ import ast
 import importlib
 import logging
 import typing
-from functools import singledispatch
+from functools import singledispatch, lru_cache
 from pathlib import Path
 from types import ModuleType
 
@@ -36,6 +36,7 @@ HYDRATION_MAP: typing.Annotated[
 }
 
 
+@lru_cache(maxsize=1)
 def load_deployment_settings_module(file_or_module_path: Path | str, /) -> ModuleType:
     """
     Loads the deployment settings module from a string or Path. This

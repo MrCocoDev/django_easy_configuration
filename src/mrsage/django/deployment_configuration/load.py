@@ -3,6 +3,7 @@ import logging
 from django.db import OperationalError
 
 from mrsage.django.deployment_configuration.exceptions import MissingTable
+from mrsage.django.deployment_configuration.shortcuts import module_from_library_settings
 
 log = logging.getLogger(__name__)
 SHOULD_LOAD = True
@@ -15,10 +16,6 @@ def fully_load_library():
     """
     from mrsage.django.deployment_configuration.core import (
         generate_deployment_settings_safely,
-        load_deployment_settings_module,
-    )
-    from mrsage.django.deployment_configuration.django_settings_helpers import (
-        LIBRARY_SETTINGS,
     )
     from mrsage.django.deployment_configuration.magic import (
         replace_deployment_settings_module,
@@ -28,9 +25,7 @@ def fully_load_library():
     # Load all of our signals
     __import__(f"mrsage.django.deployment_configuration.signals")
 
-    deployment_settings_module = load_deployment_settings_module(
-        LIBRARY_SETTINGS.deployment_settings_file
-    )
+    deployment_settings_module = module_from_library_settings()
     generate_deployment_settings_safely(
         deployment_settings_module
     )
