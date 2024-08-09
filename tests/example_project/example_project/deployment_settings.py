@@ -1,7 +1,7 @@
 from typing import Annotated
 
-from mrsage.django.deployment_configuration.data import Metadata
-from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
+from cocodev.django.deployment_configuration.data import Metadata
+from cocodev.django.deployment_configuration.typing import DefaultChangeBehavior
 
 VAR_A: Annotated[
     int | str | set,  # Allowed types

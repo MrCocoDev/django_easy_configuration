@@ -4,11 +4,11 @@ from typing import Type
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from mrsage.django.deployment_configuration.django_settings_helpers import (
+from cocodev.django.deployment_configuration.django_settings_helpers import (
     LIBRARY_SETTINGS,
 )
-from mrsage.django.deployment_configuration.models import Option
-from mrsage.django.deployment_configuration.retrieve import get_option_from_db
+from cocodev.django.deployment_configuration.models import Option
+from cocodev.django.deployment_configuration.retrieve import get_option_from_db
 
 log = logging.getLogger(__name__)
 

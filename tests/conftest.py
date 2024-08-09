@@ -11,8 +11,8 @@ from importlib import reload
 
 import pytest
 
-from mrsage.django.deployment_configuration import magic
-from mrsage.django.deployment_configuration.shortcuts import module_from_library_settings
+from cocodev.django.deployment_configuration import magic
+from cocodev.django.deployment_configuration.shortcuts import module_from_library_settings
 
 
 @pytest.fixture()

@@ -3,15 +3,15 @@ __all__ = [
     "get_option_from_db",
 ]
 
-from mrsage.django.deployment_configuration.django_cache_helpers import ttl_cache
-from mrsage.django.deployment_configuration.django_settings_helpers import (
+from cocodev.django.deployment_configuration.django_cache_helpers import ttl_cache
+from cocodev.django.deployment_configuration.django_settings_helpers import (
     LIBRARY_SETTINGS,
 )
-from mrsage.django.deployment_configuration.exceptions import (
+from cocodev.django.deployment_configuration.exceptions import (
     LibraryIsImproperlyConfigured,
     MissingOptionInDatabase,
 )
-from mrsage.django.deployment_configuration.models import Option
+from cocodev.django.deployment_configuration.models import Option
 
 
 def get_all_option_names():

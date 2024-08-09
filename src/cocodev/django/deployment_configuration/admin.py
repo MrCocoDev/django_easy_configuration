@@ -4,16 +4,16 @@ from django.contrib.admin.templatetags.admin_list import _boolean_icon
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
-from mrsage.django.deployment_configuration import deployment_settings
-from mrsage.django.deployment_configuration.core import (
+from cocodev.django.deployment_configuration import deployment_settings
+from cocodev.django.deployment_configuration.core import (
     generate_type_string_from_type,
     hydrate_value,
 )
-from mrsage.django.deployment_configuration.django_settings_helpers import (
+from cocodev.django.deployment_configuration.django_settings_helpers import (
     LIBRARY_SETTINGS,
 )
-from mrsage.django.deployment_configuration.models import Option, OptionType
-from mrsage.django.deployment_configuration.store import change_value_for_option
+from cocodev.django.deployment_configuration.models import Option, OptionType
+from cocodev.django.deployment_configuration.store import change_value_for_option
 
 
 class OptionForm(forms.ModelForm):

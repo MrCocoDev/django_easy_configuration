@@ -2,4 +2,4 @@
 Contributors
 ============
 
-* Collin Sage <3229549+MrSage@users.noreply.github.com>
+* Coco Dev <3229549+cocodev@users.noreply.github.com>

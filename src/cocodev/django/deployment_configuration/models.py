@@ -1,12 +1,12 @@
 from django.db import models
 
-from mrsage.django.deployment_configuration.core import (
+from cocodev.django.deployment_configuration.core import (
     dehydrate_value,
     generate_type_string_from_type,
     hydrate_value,
 )
-from mrsage.django.deployment_configuration.import_helper import callable_from_string
-from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
+from cocodev.django.deployment_configuration.import_helper import callable_from_string
+from cocodev.django.deployment_configuration.typing import DefaultChangeBehavior
 
 
 def meta_fields() -> tuple[models.DateTimeField, models.DateTimeField]:
@@ -53,7 +53,7 @@ class Option(models.Model):
 
     @value.setter
     def value(self, new_value):
-        from mrsage.django.deployment_configuration.store import generate_option_type
+        from cocodev.django.deployment_configuration.store import generate_option_type
 
         new_option_type_str = generate_type_string_from_type(type(new_value))
         new_option_type = generate_option_type(new_option_type_str)

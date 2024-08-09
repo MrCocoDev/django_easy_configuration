@@ -1,10 +1,10 @@
 import logging
 from typing import Iterable
 
-from mrsage.django.deployment_configuration.exceptions import InvalidTypeForOption
-from mrsage.django.deployment_configuration.import_helper import callable_from_string
-from mrsage.django.deployment_configuration.models import Option, OptionType
-from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
+from cocodev.django.deployment_configuration.exceptions import InvalidTypeForOption
+from cocodev.django.deployment_configuration.import_helper import callable_from_string
+from cocodev.django.deployment_configuration.models import Option, OptionType
+from cocodev.django.deployment_configuration.typing import DefaultChangeBehavior
 
 log = logging.getLogger(__name__)
 

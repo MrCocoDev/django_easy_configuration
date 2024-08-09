@@ -1,6 +1,6 @@
 import pytest
 
-from mrsage.django.deployment_configuration.models import Option, OptionType
+from cocodev.django.deployment_configuration.models import Option, OptionType
 
 
 @pytest.mark.django_db

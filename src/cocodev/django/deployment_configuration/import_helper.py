@@ -22,7 +22,7 @@ def import_from_filepath(filepath):
     """
     import importlib.util
     import sys
-    module_name = "mrsage.django.deployment_configuration.tmp.deployment_settings"
+    module_name = "cocodev.django.deployment_configuration.tmp.deployment_settings"
     spec = importlib.util.spec_from_file_location(
         module_name,
         filepath,

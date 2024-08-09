@@ -2,7 +2,7 @@ import random
 
 import pytest
 
-from mrsage.django.deployment_configuration.models import Option
+from cocodev.django.deployment_configuration.models import Option
 
 
 @pytest.mark.django_db
@@ -10,11 +10,11 @@ def test_retrieval(deployment_settings_module, django_assert_num_queries):
     ds = deployment_settings_module
 
     # Assure ourselves that we have an uncontaminated environment
-    from mrsage.django.deployment_configuration import magic
+    from cocodev.django.deployment_configuration import magic
     assert magic.MAGICKED_MODULE is None, "Deployment settings wasn't replaced"
 
     # Fully load the library, replacing the module in place
-    from mrsage.django.deployment_configuration.load import fully_load_library
+    from cocodev.django.deployment_configuration.load import fully_load_library
     fully_load_library()
     assert magic.MAGICKED_MODULE == ds, "Deployment settings wasn't replaced"
 

@@ -1,4 +1,4 @@
-from mrsage.django.deployment_configuration.core import load_deployment_settings_module
+from cocodev.django.deployment_configuration.core import load_deployment_settings_module
 
 
 def test_load_deployment_settings_module_with_path(settings):

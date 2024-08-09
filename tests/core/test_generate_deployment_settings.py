@@ -1,9 +1,9 @@
 import pytest
 
-from mrsage.django.deployment_configuration.core import (
+from cocodev.django.deployment_configuration.core import (
     generate_deployment_settings_safely,
 )
-from mrsage.django.deployment_configuration.models import Option
+from cocodev.django.deployment_configuration.models import Option
 
 
 @pytest.mark.django_db

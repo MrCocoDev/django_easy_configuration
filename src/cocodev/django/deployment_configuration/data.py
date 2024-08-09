@@ -1,6 +1,6 @@
 import dataclasses
 
-from mrsage.django.deployment_configuration.typing import DefaultChangeBehavior
+from cocodev.django.deployment_configuration.typing import DefaultChangeBehavior
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)

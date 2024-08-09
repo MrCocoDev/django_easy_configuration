@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mrsage.django.deployment_configuration',
+    'cocodev.django.deployment_configuration',
 ]
 
 MIDDLEWARE = [

@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 
-from mrsage.django.deployment_configuration.exceptions import MissingTable
-from mrsage.django.deployment_configuration.load import fully_load_library
+from cocodev.django.deployment_configuration.exceptions import MissingTable
+from cocodev.django.deployment_configuration.load import fully_load_library
 
 
 def fully_load_library_after_migrations(sender, **kwargs):
@@ -12,7 +12,7 @@ def fully_load_library_after_migrations(sender, **kwargs):
 class DeploymentConfigurationConfig(AppConfig):
     default = True
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mrsage.django.deployment_configuration'
+    name = 'cocodev.django.deployment_configuration'
 
     def ready(self):
         try:
@@ -36,4 +36,4 @@ class DeploymentConfigurationTestConfig(AppConfig):
     """
     default = False
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mrsage.django.deployment_configuration'
+    name = 'cocodev.django.deployment_configuration'

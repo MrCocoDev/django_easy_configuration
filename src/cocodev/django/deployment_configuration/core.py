@@ -11,12 +11,12 @@ from types import ModuleType
 
 import django.db.utils
 
-from mrsage.django.deployment_configuration.data import Metadata
-from mrsage.django.deployment_configuration.import_helper import (
+from cocodev.django.deployment_configuration.data import Metadata
+from cocodev.django.deployment_configuration.import_helper import (
     callable_from_string,
     import_from_filepath,
 )
-from mrsage.django.deployment_configuration.metadata import _APP
+from cocodev.django.deployment_configuration.metadata import _APP
 
 log = logging.getLogger(__name__)
 
@@ -114,7 +114,7 @@ def generate_deployment_settings(deployment_settings_module: ModuleType):
     """
     # This function runs once, so we pay for the local import instead of paying
     # every time a value is accessed
-    from mrsage.django.deployment_configuration.store import (
+    from cocodev.django.deployment_configuration.store import (
         clean_up_old_options,
         push_data_to_database,
     )

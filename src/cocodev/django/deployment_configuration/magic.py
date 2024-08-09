@@ -1,6 +1,6 @@
 import logging
 
-from mrsage.django.deployment_configuration.retrieve import (
+from cocodev.django.deployment_configuration.retrieve import (
     get_all_option_names,
     get_option_from_db,
 )

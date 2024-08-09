@@ -6,7 +6,7 @@ the installation of the package without the need of copying the source code.
 Because of that ``pyscaffoldext-django`` moves the generated ``__main__.py`` file
 to become the package's ``__main__.py`` file. This way all the commands that
 could be run before as ``python3 __main__.py <COMMAND>`` can now be run as
-``python3 -m mrsage.services.community_creator <COMMAND>``, in a straight forward fashion just after
+``python3 -m cocodev.services.community_creator <COMMAND>``, in a straight forward fashion just after
 a ``pip3 install``.
 
 This file is a executable stub that simply calls ``__main__.py:main()`` for

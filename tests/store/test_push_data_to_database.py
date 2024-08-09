@@ -1,6 +1,6 @@
 import pytest
 
-from mrsage.django.deployment_configuration.store import push_data_to_database
+from cocodev.django.deployment_configuration.store import push_data_to_database
 
 
 @pytest.mark.django_db

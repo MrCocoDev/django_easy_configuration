@@ -1,15 +1,15 @@
 .. These are examples of badges you might want to add to your README:
    please update the URLs accordingly
 
-    .. image:: https://api.cirrus-ci.com/github/MrSage/django-easy-configuration.svg?branch=main
+    .. image:: https://api.cirrus-ci.com/github/mrcocodev/django-easy-configuration.svg?branch=main
         :alt: Built Status
-        :target: https://cirrus-ci.com/github/MrSage/django-easy-configuration
+        :target: https://cirrus-ci.com/github/mrcocodev/django-easy-configuration
     .. image:: https://readthedocs.org/projects/django-easy-configuration/badge/?version=latest
         :alt: ReadTheDocs
         :target: https://django-easy-configuration.readthedocs.io/en/stable/
-    .. image:: https://img.shields.io/coveralls/github/MrSage/django-easy-configuration/main.svg
+    .. image:: https://img.shields.io/coveralls/github/mrcocodev/django-easy-configuration/main.svg
         :alt: Coveralls
-        :target: https://coveralls.io/r/MrSage/django-easy-configuration
+        :target: https://coveralls.io/r/mrcocodev/django-easy-configuration
     .. image:: https://img.shields.io/conda/vn/conda-forge/django-easy-configuration.svg
         :alt: Conda-Forge
         :target: https://anaconda.org/conda-forge/django-easy-configuration
@@ -23,9 +23,9 @@
 .. image:: https://img.shields.io/pypi/v/django-easy-configuration.svg
     :alt: PyPI-Server
     :target: https://pypi.org/project/django-easy-configuration/
-.. image:: https://github.com/MrSage/django_easy_configuration/actions/workflows/ci.yml/badge.svg?branch=main
+.. image:: https://github.com/cocodev/django_easy_configuration/actions/workflows/ci.yml/badge.svg?branch=main
     :alt: GitHub Test CI
-    :target: https://github.com/MrSage/django_easy_configuration/actions/workflows/ci.yml
+    :target: https://github.com/cocodev/django_easy_configuration/actions/workflows/ci.yml
 .. image:: https://pepy.tech/badge/django-easy-configuration/month
     :alt: Monthly Downloads
     :target: https://pepy.tech/project/django_easy_configuration
@@ -82,7 +82,7 @@ setup there will be more options to explore:
 
     # my.modules.deployment_settings.py
     from typing import Annotated
-    from mrsage.django.deployment_configuration.typing import Metadata
+    from cocodev.django.deployment_configuration.typing import Metadata
 
     CUSTOMER_DISPLAY_NAME: Annotated[
         str,
@@ -100,7 +100,10 @@ setup there will be more options to explore:
         Metadata(documentation="Set this higher for customers with high latency networks"),
     ] = 10.0
 
-Now if you load up the Django admin again you'll see that the documentation for each variable is
+Django Admin
+-------------
+
+If you navigate to the Django admin again you'll see that the documentation for each variable is
 rendered as HTML, making it easy to provide detailed information to your Technical Account Manager's
 and other non-engineers who may be making these changes. When you look at **NETWORK_TIMEOUT** you can
 see that you can change the type as well as the value. This library adds native support for all the

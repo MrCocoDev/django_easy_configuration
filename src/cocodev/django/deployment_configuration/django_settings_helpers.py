@@ -2,7 +2,7 @@ from unittest.mock import sentinel
 
 from django.conf import settings
 
-from mrsage.django.deployment_configuration.exceptions import (
+from cocodev.django.deployment_configuration.exceptions import (
     LibraryIsImproperlyConfigured,
 )
 
