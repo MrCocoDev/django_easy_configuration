@@ -23,9 +23,9 @@
 .. image:: https://img.shields.io/pypi/v/django-easy-configuration.svg
     :alt: PyPI-Server
     :target: https://pypi.org/project/django-easy-configuration/
-.. image:: https://github.com/cocodev/django_easy_configuration/actions/workflows/ci.yml/badge.svg?branch=main
+.. image:: https://github.com/mrcocodev/django_easy_configuration/actions/workflows/ci.yml/badge.svg?branch=main
     :alt: GitHub Test CI
-    :target: https://github.com/cocodev/django_easy_configuration/actions/workflows/ci.yml
+    :target: https://github.com/mrcocodev/django_easy_configuration/actions/workflows/ci.yml
 .. image:: https://pepy.tech/badge/django-easy-configuration/month
     :alt: Monthly Downloads
     :target: https://pepy.tech/project/django_easy_configuration
