@@ -1,6 +1,6 @@
 import functools
 from functools import _make_key
-from typing import Optional, Callable
+from typing import Callable, Optional
 
 from django.core.cache import caches
 

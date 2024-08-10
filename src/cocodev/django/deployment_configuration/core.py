@@ -5,7 +5,7 @@ import ast
 import importlib
 import logging
 import typing
-from functools import singledispatch, lru_cache
+from functools import lru_cache, singledispatch
 from pathlib import Path
 from types import ModuleType
 

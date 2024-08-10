@@ -3,7 +3,9 @@ import logging
 from django.db import OperationalError
 
 from cocodev.django.deployment_configuration.exceptions import MissingTable
-from cocodev.django.deployment_configuration.shortcuts import module_from_library_settings
+from cocodev.django.deployment_configuration.shortcuts import (
+    module_from_library_settings,
+)
 
 log = logging.getLogger(__name__)
 SHOULD_LOAD = True

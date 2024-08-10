@@ -5,7 +5,9 @@ import pytest
 
 from cocodev.django.deployment_configuration.load import fully_load_library
 from cocodev.django.deployment_configuration.models import Option
-from cocodev.django.deployment_configuration.shortcuts import module_from_library_settings
+from cocodev.django.deployment_configuration.shortcuts import (
+    module_from_library_settings,
+)
 
 
 @pytest.mark.django_db

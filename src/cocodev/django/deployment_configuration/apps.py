@@ -19,8 +19,8 @@ class DeploymentConfigurationConfig(AppConfig):
             fully_load_library()
         except MissingTable:
             """
-            If migrations are running the first call will fail, but the 
-            post_migrate signal is only sent when migrations are running, 
+            If migrations are running the first call will fail, but the
+            post_migrate signal is only sent when migrations are running,
             so we can't use that normally.
             """
             post_migrate.connect(
